@@ -94,17 +94,18 @@ class Folder {
 		return is_object($folderMetadata) ? $folderMetadata->metadata->contents : $folderMetadata;
 	}
 
-	public function create($name = "", $parent = 0) {
+	public function create($name, $parentId, $ignoreIfExists = true) {
 		if (!is_string($name) || strlen($name) < 1) {
 			throw new InvalidArgumentException("Invalid folder name");
 		}
 
 		$params = array(
 			"name" => $name,
-			"folderid" => $parent
+			"folderid" => $parentId
 		);
 
-		$response = $this->request->get("createfolder", $params);
+        $method = $ignoreIfExists === true ? "createfolderifnotexists" : "createfolder";
+		$response = $this->request->get($method, $params);
 
 		return is_object($response) ? $response->metadata->folderid : $response;
 	}
