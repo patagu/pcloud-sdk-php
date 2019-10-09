@@ -83,7 +83,8 @@ class File {
 			throw new Exception("Invalid file");
 		}
 
-		$path = str_replace(array("\\", "_"), "/", $path);
+		// TODO: make it into a configurable option
+		// $path = str_replace(array("\\", "_"), "/", $path);
 		$parts = explode("/", $path);
 
 		if (!$filename) {
